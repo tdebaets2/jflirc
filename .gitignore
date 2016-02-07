@@ -1,0 +1,36 @@
+# Delphi compiler-generated binaries (safe to delete)
+*.exe
+*.dll
+*.bpl
+*.bpi
+*.dcp
+*.so
+*.apk
+*.drc
+*.map
+*.dres
+*.rsm
+*.tds
+*.dcu
+*.lib
+*.a
+*.o
+*.ocx
+
+# Delphi local files (user-specific info)
+*.local
+*.identcache
+*.projdata
+*.tvsconfig
+*.dsk
+
+# Delphi history and backups
+__history/
+*.~*
+
+# User-specific compile settings (e.g. paths)
+usercompilesettings.bat
+
+# Per-project compiler options created by Delphi
+# <project-name>.cfg.main is always used instead for command-line compile
+JFLirc.cfg
