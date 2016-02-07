@@ -54,6 +54,15 @@ set DELPHIROOT=
 call .\usercompilesettings.bat
 if "%DELPHIROOT%"=="" goto usercompilesettingserror
 
+for /F %%i in ('dir /b /a "common\*"') do (
+    rem common submodule folder not empty, ok
+    goto commonok
+)
+
+echo The common subdirectory is still empty; did you run postclone.bat yet?
+goto failed2
+
+:commonok
 set LIB_PATH=..\common\Delphi\LibFixed;%DELPHIROOT%\lib;..\common\Delphi\LibUser;..\common\Delphi\Imports
 
 rem -------------------------------------------------------------------------
@@ -89,7 +98,7 @@ set CFGFILE=JFLirc.cfg
 if errorlevel 1 goto failed
 ren %CFGFILE% %CFGFILE%.main
 set CFGFILE=
-ren %OLDCFGFILE%.%UNIQUESTR% %OLDCFGFILE%
+if not "%OLDCFGFILE%"=="" ren %OLDCFGFILE%.%UNIQUESTR% %OLDCFGFILE%
 set OLDCFGFILE=
 
 echo Success!
