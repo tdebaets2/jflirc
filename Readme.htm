@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>WinLIRC plug-in for jetAudio</title>
+<style>
+<!--
+.normal
+{ 
+	font-family: verdana, tahoma, arial, sans-serif;
+	margin: 10px;
+  	padding: 10px;
+	max-width: 800px
+}
+
+h3
+{
+	margin-top: 30pt
+}
+
+h4
+{
+	margin-top: 30pt
+}
+
+h5
+{
+	margin-top: 25pt
+}
+
+p
+{
+	font-size: 10pt;
+	line-height: 18px
+}
+
+ul
+{
+	font-size: 10pt;
+	line-height: 18px
+}
+
+table
+{
+	font-size: 10pt;
+	line-height: 18px
+}
+
+
+.backtotop
+{
+	margin-top: 30pt
+}
+-->
+</style>
+</head>
+
+<body class="normal">
+
+<h2><a name="top"></a>WinLIRC plug-in for jetAudio</h2>
+
+<p>Version 1.0</p>
+<p>Contents:</p>
+<ul>
+  <li><a href="#intro">Introduction</a></li>
+  <li><a href="#winlirc">What is WinLIRC?</a></li>
+  <li><a href="#config">Configuring the plug-in</a><ul>
+  <li><a href="#configgeneral">General settings</a></li>
+  <li><a href="#configbindings">Key bindings</a></li>
+  <li><a href="#configactions">Possible jetAudio actions</a></li>
+</ul>
+  </li>
+  <li><a href="#contact">Contact information</a></li>
+  <li><a href="#license">License</a></li>
+</ul>
+<h3><a name="intro"></a>Introduction</h3>
+<p>This plug-in adds WinLIRC support to
+<a href="http://www.cowonamerica.com/products/jetaudio/">jetAudio</a> (see <a href="#winlirc">next item</a> if you don't know what 
+WinLIRC is). jetAudio is an excellent media player supporting all common audio 
+and video formats. It already has built-in support for Microsoft Media Center 
+and Streamzap remote controllers, but this doesn't work for other types of 
+remotes, and can't be configured at all (the key bindings can't be changed). In 
+contrast, you can use every remote supported by WinLIRC with this plug-in 
+(almost any standard remote control). You also get full control over the key 
+bindings, allowing you to adjust them to your own likings.</p>
+<p>Requirements: Windows XP or higher, jetAudio 7 or higher</p>
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+<h3><a name="winlirc"></a>What is WinLIRC?</h3>
+
+<p><a href="http://www.lirc.org/">LIRC</a> (Linux Infrared Remote Control) is 
+open source software to receive infrared signals on Linux. The most important 
+part of LIRC is the server, which decodes received infrared signals and notifies 
+a 
+connected client  of these signals. Whenever a key on the remote is pressed, 
+the server sends a message to the client to inform it of this key press. 
+The fact that it's a server and client doesn't necessarily mean that they have 
+to connect through the Internet. In most cases, the server and client are just 
+locally running programs using local connections.&nbsp;</p>
+
+<p>Evidently, <a href="http://winlirc.sourceforge.net/">WinLIRC</a> is the Windows 
+equivalent of LIRC. This plug-in for jetAudio only acts as 
+a client, so you will need a WinLIRC server first. This has the 
+advantage  that you can use any WinLIRC server, depending on your type 
+of  remote controller. The <a href="http://winlirc.sourceforge.net/">
+original WinLIRC server</a> only supports infrared remotes, but you can setup a WinLIRC server for X10 (radio-frequency) remotes too, using <a href="http://rwkeymaster.sourceforge.net/rwkm_readme.htm">RW Key 
+Master</a> together with <a href="http://remotew.free.fr/plugins.htm#winlirc">a
+plug-in that starts a WinLIRC server</a>.</p>
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+<h3><a name="config"></a>Configuring the plug-in</h3>
+
+<p>There is currently no user interface to configure the plug-in, but the 
+settings can be changed relatively easily by editing the plug-in's INI file 
+directly, with 
+a simple text editor such as Notepad (more information about INI files
+<a href="http://en.wikipedia.org/wiki/INI_file">here</a>). The settings file is called JFLirc.ini 
+and can  be found in one of the following locations, depending on your 
+version of Windows:</p>
+
+<ul>
+  <li><b>Windows XP and Server 2003</b>: C:\Documents and Settings\&lt;username&gt;\Application 
+Data\COWON\JetAudio</li>
+  <li><b>Windows Vista and newer:</b> C:\Users\&lt;username&gt;\AppData\Roaming\COWON\JetAudio</li>
+</ul>
+
+<p>It's possible that this file doesn't exist yet 
+and that you need to create it manually first. When you make changes to the 
+file, you need to restart jetAudio for the changes to take effect.</p>
+
+<p>The configuration file has two main sections: <b>Settings</b> contains general plug-in settings, and <b>Keys</b> 
+is the place where key bindings can be defined (each binding assigns a key on the remote to an action in jetAudio).</p>
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+<h4><a name="configgeneral"></a>General settings</h4>
+
+<h5>WinLircHost</h5>
+
+<p>Default value: localhost</p>
+
+<p>The host on which the WinLIRC server is running. This can be a hostname, but 
+also an IP address. In most cases, the server will run on the same system as jetAudio, which means that the 
+value needs to be localhost (this is also the default value that will be used 
+when the setting isn't explicitly specified in the INI file).</p>
+
+<h5>WinLircPort</h5>
+
+<p>Default value: 8765</p>
+
+<p>The port that the WinLIRC server is listening on, and thus the plug-in should 
+use to connect to the server. The listening port can usually be set in the 
+server's configuration, and that port number should match the port number 
+specified here. If they don't, the plug-in won't be able to connect. 8765 is the default port for WinLIRC connections. </p>
+
+<h5>WinLircServer</h5>
+
+<p>Default value: empty</p>
+
+<p>By default, the plug-in will show an error message when it is unable to 
+connect to a WinLIRC server using the configured (or default) host and port. 
+However, when this setting is nonempty and contains the filename to a valid 
+executable file, the plug-in will launch that executable instead of displaying an error. This 
+allows for automatic launching of the WinLIRC server: specify the filename to 
+the server here, and the plug-in will start it for you if it isn't already running.</p>
+
+<p>After the plug-in has started the server, 
+it will again try to connect a certain number of times (see next 
+setting). If all these tries still fail, the plug-in will eventually display an error message. 
+Please note that the plug-in won't launch anything if it's able to connect to 
+the server on the very first try.</p>
+
+<h5>MaxRetries</h5>
+
+<p>Default value: 3</p>
+
+<p>It's not uncommon that the WinLIRC server first needs a few seconds to initialize before it 
+is able to accept connections from clients. This is why the plug-in can try to 
+connect a few times after it has automatically launched the server (see previous 
+setting), before eventually giving up and displaying an error message. There are generally about 2 seconds between 
+two subsequent tries, so the default value of 3 gives the server approximately 6 
+seconds to initialize. This should be more than enough, but it's always possible 
+to increase the value if the server needs more time to initialize, and the 
+plug-in gives up connecting too early.</p>
+
+<p>Please note that, like the previous setting, this has no effect when the 
+plug-in is able to connect to the server on the very first try.</p>
+
+<h5>NoConnectFailedWarning</h5>
+
+<p>Default value: 0</p>
+
+<p>Set this to 1 to disable the error message that the plug-in displays when it 
+is unable to connect to the WinLIRC server. This is generally not recommended, 
+because it is  the only way to know if the connection failed (there are 
+no other indications of a successful or failed connection). The only possible 
+scenario for this is when the WinLIRC server isn't always running while using 
+jetAudio, and you want to prevent the error message from appearing on every 
+jetAudio start-up.</p>
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+<h4><a name="configbindings"></a>Key bindings</h4>
+
+<p>Every item in the <b>Keys</b> section assigns a key on the remote controller 
+to an action in jetAudio. Its name is a key name, and its value a jetAudio 
+action. Thus, all items should have the following format:</p>
+
+<blockquote>
+
+<p>&lt;key name&gt;=&lt;jetAudio action&gt;</p>
+
+</blockquote>
+
+<p>&lt;key name&gt; should be the name of a key on the remote as it is sent by the 
+WinLIRC server, and &lt;jetAudio action&gt; an action from <a href="#configactions">
+the list of possible jetAudio actions</a> (both without &lt; and &gt;). There can be 
+at most one item for each key name. When there are several items with the same 
+key name, the plug-in will only 
+see the first  and ignore all others. It is allowed to assign more than one 
+key to the same jetAudio action.</p>
+
+<p>The following example binds the mute key of the remote to the togglemute 
+action in jetAudio:</p>
+
+<blockquote>
+
+<p>mute=togglemute</p>
+
+</blockquote>
+
+<p><b>Hint:</b> if you don't know the WinLIRC key names of your remote, you can 
+let the plug-in automatically add them to the INI file. Just follow these steps:</p>
+
+<ul>
+  <li>Make sure that the Keys section is empty (this is not really necessary, 
+  but it's usually a good idea to start off with a clean section).</li>
+  <li>Check if the WinLIRC server is running, start jetAudio, and make sure that 
+  the plug-in has connected to the server (no error message is displayed).</li>
+  <li>Press every key on the remote (except the on/off key). For each 
+  key that is pressed, and whose name doesn't exist in the Keys section yet, the 
+  plug-in will write a new entry to the INI file with the key's name. As a 
+  result, the Keys section should now contain the names of all the keys on your 
+  remote when you reopen the INI file. The value of each newly added item is 
+  left empty (no text after the equals sign), meaning that no jetAudio action 
+  has been assigned to the key yet.</li>
+  <li>You can now easily bind each key to a <a href="#configactions">jetAudio 
+  action</a> by entering the action next to the corresponding key name (right 
+  after the equals sign). Save the INI file when you're done and restart 
+  jetAudio for the changes to take effect.</li>
+</ul>
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+<h4><a name="configactions"></a>Possible jetAudio actions</h4>
+
+<p>This is a list of all the jetAudio actions that can be assigned to a key in 
+the Keys section, and a short description of each action. Bindings to an action 
+not in this list will be ignored by the plug-in.</p>
+
+<h5>Common actions</h5>
+<table border="1" cellpadding="2" width="100%" id="AutoNumber1">
+  <tr>
+    <td width="25%" valign="top"><b>jetAudio action</b></td>
+    <td><b>Description</b></td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">discmode</td>
+    <td>Changes current mode to Disc Mode.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">filemode</td>
+    <td>Changes current mode to File Mode.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">stop</td>
+    <td>Stops playback.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">play</td>
+    <td>Starts playback.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">playresume</td>
+    <td>Starts playback or resumes (seems to be identical to play).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">prevtrack</td>
+    <td>Plays the previous track.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">nexttrack</td>
+    <td>Plays the next track.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">cyclerepeatmode</td>
+    <td>Cycles between the different repeat modes (No Repeat, Repeat 
+    This, and Repeat All).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">setrepeatnone</td>
+    <td>Sets the No Repeat mode.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">setrepeatthis</td>
+    <td>Sets the Repeat This mode.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">setrepeatall</td>
+    <td>Sets the Repeat All mode.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">backward</td>
+    <td>Moves the current playback position 10 seconds backwards.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">forward</td>
+    <td>Moves the current playback position 10 seconds forwards.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">cycleplaymode</td>
+    <td>Cycles between the different play modes (Normal, Random, and 
+    Program).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">setplaymodenormal</td>
+    <td>Sets the Normal play mode.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">setplaymoderandom</td>
+    <td>Sets the Random play mode.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">setplaymodeprogram</td>
+    <td>Sets the Program play mode.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">playslower</td>
+    <td>Decreases playback speed.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">playfaster</td>
+    <td>Increases playback speed.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">volumedown</td>
+    <td>Decreases volume.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">volumeup</td>
+    <td>Increases volume.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">togglemute</td>
+    <td>Toggles  muted sound (on/off).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">exit</td>
+    <td>Exits jetAudio.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">screen1x</td>
+    <td>Sets screen size to 100%.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">screen2x</td>
+    <td>Sets screen size to 200%.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">screenfull</td>
+    <td>Sets screen size to full screen.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">togglefullscreen</td>
+    <td>Toggles between windowed/full screen mode.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">minimizerestore</td>
+    <td>Minimizes/restores jetAudio's main window.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">togglewidemode</td>
+    <td>Toggles Wide sound effect mode (on/off).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">togglexbassmode</td>
+    <td>Toggles X-Bass sound effect mode (on/off).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">togglebbemode</td>
+    <td>Toggles BBE sound effect mode (on/off).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">togglebbevivamode</td>
+    <td>Toggles BBE ViVA sound effect mode (on/off).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">togglecrossfade</td>
+    <td>Toggles Crossfade sound effect mode (on/off).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">togglexsurround</td>
+    <td>Toggles X-Surround sound effect mode (on/off).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">eject</td>
+    <td>Ejects the current CD-rom drive.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">toggletray</td>
+    <td>Toggles tray-only mode (on/off).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">refreshalbum</td>
+    <td>Refreshes the contents of the current album.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">sortalbum</td>
+    <td>Sorts the contents of the current album.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">aspectoriginal</td>
+    <td>Sets the original aspect ratio.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">aspect43</td>
+    <td>Sets aspect ratio to 4:3 (TV).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">aspect169</td>
+    <td>Sets aspect ratio to 16:9 (HDTV).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">aspect1851</td>
+    <td>Sets aspect ratio to 1.85:1 (Cinemascope 1).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">aspect2351</td>
+    <td>Sets aspect ratio to 2.35:1 (Cinemascope 2).</td>
+  </tr>
+</table>
+
+<h5>DVD actions</h5>
+<table border="1" cellpadding="2" width="100%" id="AutoNumber1">
+  <tr>
+    <td width="25%" valign="top"><b>jetAudio action</b></td>
+    <td><b>Description</b></td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">goup</td>
+    <td>Goes up or returns (available for Video CD's too).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">cyclelang</td>
+    <td>Cycles between the available languages (available for multi-language 
+    video's too).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">cyclesubtitle</td>
+    <td>Cycles between the available subtitles (available for subtitled video's 
+    too).</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">togglesubtitle</td>
+    <td>Toggles subtitle enabled (on/off, available for subtitled video's too). </td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">cycleangle</td>
+    <td>Cycles between the available DVD angles.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">titlemenu</td>
+    <td>Goes to the DVD Title Menu.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">rootmenu</td>
+    <td>Goes to the DVD Root Menu.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">up</td>
+    <td>Up in current DVD menu.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">down</td>
+    <td>Down in current DVD menu.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">left</td>
+    <td>Left in current DVD menu.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">right</td>
+    <td>Right in current DVD menu.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">enter</td>
+    <td>Enter in current DVD menu.</td>
+  </tr>
+</table>
+
+<h5>Monitor actions</h5>
+<table border="1" cellpadding="2" width="100%" id="AutoNumber1" height="78">
+  <tr>
+    <td width="25%" valign="top"><b>jetAudio action</b></td>
+    <td><b>Description</b></td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">cyclemonitor</td>
+    <td>Cycles the monitor on which the video window is currently displayed.</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">setmonitor1 - setmonitor9</td>
+    <td>Moves the video window to the monitor with the corresponding index (See 
+    Display Settings in the Control Panel for these indices).</td>
+  </tr>
+</table>
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+<h3><a name="contact"></a>Contact information</h3>
+<p>Website: <a href="http://bmproductions.fixnum.org/jawinlirc">
+http://bmproductions.fixnum.org/jawinlirc</a></p>
+<p>E-mail: <a href="mailto:info@bm-productions.tk">info@bm-productions.tk</a></p>
+<p>Author: Tim De Baets</p>
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+<h3><a name="license"></a>License</h3>
+<p>WinLIRC plug-in for jetAudio is Copyright © 2016 Tim De Baets, and licensed 
+under the Apache License version 2.0.</p>
+<p>Contains portions of the Common Code Utilities by Tim De Baets, which is 
+Copyright © 2016 Tim De Baets, and licensed under the Apache License version 
+2.0.</p>
+<p>See the provided <a href="LICENSE">LICENSE</a> file for more details.</p>
+<p class="backtotop"><a href="#top">Back to top</a></p>
+<p>&nbsp;</p>
+<p align="center">Copyright © 2009 BM-productions - All rights reserved</p>
+
+</body>
+
+</html>
