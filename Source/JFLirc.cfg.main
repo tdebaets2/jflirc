@@ -56,3 +56,4 @@
 -M                  // make modified units
 -$M16384,1048576    // min/max stack size
 -K$00400000         // image base address
+-E"..\Output"       // output directory

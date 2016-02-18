@@ -93,7 +93,6 @@ set CFGFILE=JFLirc.cfg
 "%DELPHIROOT%\bin\dcc32.exe" %DCC32OPTS% %1 ^
     -U"%LIB_PATH%" ^
     -R"%DELPHIROOT%\lib" ^
-    -E..\Output ^
     JFLirc.dpr
 if errorlevel 1 goto failed
 ren %CFGFILE% %CFGFILE%.main
