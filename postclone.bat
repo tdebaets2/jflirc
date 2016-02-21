@@ -28,17 +28,15 @@ rem **************************************************************************
 
 setlocal
 
-for /F %%i in ('dir /b /a "common\*"') do (
-    echo The common subdirectory isn't empty; cannot continue.
-    goto failed2
-)
-
 echo Initializing and updating submodules...
 
 git submodule init
 if errorlevel 1 goto failed
 
 git submodule update
+if errorlevel 1 goto failed
+
+call .\common\Scripts\setuprepo.bat
 if errorlevel 1 goto failed
 
 echo Success!
