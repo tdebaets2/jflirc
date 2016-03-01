@@ -39,20 +39,20 @@ for /f "delims=:., tokens=1-4" %%t in ("%TIME: =0%") do (
     set UNIQUESTR=%%t%%u%%v%%w
 )
 
-rem  Retrieve user-specific compile settings from file
+rem  Retrieve user-specific settings from file
 
-if exist usercompilesettings.bat goto usercompilesettingsfound
-:usercompilesettingserror
-echo usercompilesettings.bat is missing or incomplete. It needs to be created
-echo with the following lines, adjusted for your system:
+if exist userprefs.bat goto userprefsfound
+:userprefserror
+echo userprefs.bat is missing or incomplete. It needs to be created with
+echo the following lines, adjusted for your system:
 echo.
 echo   set DELPHIROOT=c:\delphi4              [Path to Delphi 4 (or later)]
 goto failed2
 
-:usercompilesettingsfound
+:userprefsfound
 set DELPHIROOT=
-call .\usercompilesettings.bat
-if "%DELPHIROOT%"=="" goto usercompilesettingserror
+call .\userprefs.bat
+if "%DELPHIROOT%"=="" goto userprefserror
 
 for /F %%i in ('dir /b /a "common\*"') do (
     rem common submodule folder not empty, ok
