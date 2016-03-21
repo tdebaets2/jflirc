@@ -36,7 +36,7 @@ if errorlevel 1 goto failed
 git submodule update
 if errorlevel 1 goto failed
 
-call .\common\Scripts\setuprepo.bat
+call .\common\Scripts\setuprepo.bat %*
 if errorlevel 1 goto failed
 
 echo Success!
