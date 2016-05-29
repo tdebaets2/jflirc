@@ -28,20 +28,26 @@ rem **************************************************************************
 
 setlocal
 
+if not exist common goto common_nok
+
 for /F %%i in ('dir /b /a "common\*"') do (
     rem common submodule folder not empty, ok
-    goto commonok
+    goto update
 )
 
-echo The common subdirectory is still empty; did you run postclone.bat yet?
-goto failed
+goto common_nok
 
-:commonok
+:update
 
 call .\common\Scripts\updaterepo.bat %*
 if errorlevel 1 goto failed
 
 goto exit
+
+:common_nok
+
+echo The common subdirectory was not found or is still empty.
+echo Did you run postclone.bat yet?
 
 :failed
 exit /b 1
