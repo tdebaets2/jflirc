@@ -34,10 +34,8 @@ set OLDCFGFILE=
 rem  Quiet compile / Build all / Output warnings
 set DCC32OPTS=-Q -B -W
 
-rem  Generate semi-unique string for temporary file renames
-for /f "delims=:., tokens=1-4" %%t in ("%TIME: =0%") do (
-    set UNIQUESTR=%%t%%u%%v%%w
-)
+rem Generate unique number for temporary file renames
+set RND=%RANDOM%
 
 rem  Retrieve user-specific settings from file
 
@@ -82,7 +80,7 @@ echo - JFLirc.dpr
 
 rem  Rename user-generated .cfg file if it exists
 if not exist JFLirc.cfg goto jflirc
-ren JFLirc.cfg JFLirc.cfg.%UNIQUESTR%
+ren JFLirc.cfg JFLirc.cfg.%RND%
 if errorlevel 1 goto failed
 set OLDCFGFILE=JFLirc.cfg
 
@@ -97,7 +95,7 @@ set CFGFILE=JFLirc.cfg
 if errorlevel 1 goto failed
 ren %CFGFILE% %CFGFILE%.main
 set CFGFILE=
-if not "%OLDCFGFILE%"=="" ren %OLDCFGFILE%.%UNIQUESTR% %OLDCFGFILE%
+if not "%OLDCFGFILE%"=="" ren %OLDCFGFILE%.%RND% %OLDCFGFILE%
 set OLDCFGFILE=
 
 echo Success!
@@ -106,7 +104,7 @@ goto exit
 
 :failed
 if not "%CFGFILE%"=="" ren %CFGFILE% %CFGFILE%.main
-if not "%OLDCFGFILE%"=="" ren %OLDCFGFILE%.%UNIQUESTR% %OLDCFGFILE%
+if not "%OLDCFGFILE%"=="" ren %OLDCFGFILE%.%RND% %OLDCFGFILE%
 echo *** FAILED ***
 cd ..
 :failed2
