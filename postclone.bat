@@ -39,6 +39,11 @@ if errorlevel 1 goto failed
 call .\common\Scripts\setuprepo.bat %*
 if errorlevel 1 goto failed
 
+echo Creating directories...
+
+call .\common\Scripts\createdir Output
+if errorlevel 1 goto failed
+
 echo Success!
 goto exit
 
