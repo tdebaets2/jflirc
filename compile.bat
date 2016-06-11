@@ -52,15 +52,17 @@ set DELPHIROOT=
 call .\userprefs.bat
 if "%DELPHIROOT%"=="" goto userprefserror
 
-for /F %%i in ('dir /b /a "common\*"') do (
+for /F %%i in ('dir /b /a "common\*" 2^>NUL') do (
     rem common submodule folder not empty, ok
-    goto commonok
+    goto common_ok
 )
 
-echo The common subdirectory is still empty; did you run postclone.bat yet?
+echo The common subdirectory was not found or is still empty.
+echo Did you run postclone.bat yet?
 goto failed2
 
-:commonok
+:common_ok
+
 set LIB_PATH=..\common\Delphi\LibFixed;%DELPHIROOT%\lib;..\common\Delphi\LibUser;..\common\Delphi\Imports
 
 rem -------------------------------------------------------------------------
