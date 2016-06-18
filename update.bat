@@ -30,19 +30,22 @@ setlocal
 
 for /F %%i in ('dir /b /a "common\*" 2^>NUL') do (
     rem common submodule folder not empty, ok
-    goto update
+    goto do_update
 )
 
 echo The common subdirectory was not found or is still empty.
 echo Did you run postclone.bat yet?
 goto failed
 
-:update
+:do_update
 
-call .\common\Scripts\updaterepo.bat %*
-if errorlevel 1 goto failed
+rem Intentionally not using 'call' here because this script should stop
+rem executing. Otherwise, strange effects can occur if this script gets updated
+rem while it is being executed!
+.\common\Scripts\updaterepo.bat %*
 
-goto exit
+echo ERROR: We should never get here!
+goto failed
 
 :failed
 exit /b 1
