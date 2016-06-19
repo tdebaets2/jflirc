@@ -44,6 +44,9 @@ echo Creating directories...
 call .\common\Scripts\createdir Output
 if errorlevel 1 goto failed
 
+call .\common\Scripts\createdir Output\DCU
+if errorlevel 1 goto failed
+
 echo Success!
 goto exit
 
