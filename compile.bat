@@ -71,12 +71,14 @@ rem  Compile each project separately because it seems Delphi carries some
 rem  settings (e.g. $APPTYPE) between projects if multiple projects are
 rem  specified on the command line.
 
-rem  Always use 'master' .cfg file when compiling from the command line to
+rem  Always use common .cfg file when compiling from the command line to
 rem  prevent user options from hiding compile failures in official builds.
 rem  Temporarily rename any user-generated .cfg file during compilation.
 
 cd Source
 if errorlevel 1 goto failed
+
+set COMMONDIR=..\common
 
 echo - JFLirc.dpr
 
@@ -87,7 +89,8 @@ if errorlevel 1 goto failed
 set OLDCFGFILE=JFLirc.cfg
 
 :jflirc
-ren JFLirc.cfg.main JFLirc.cfg
+call %COMMONDIR%\Scripts\mycopy.bat ^
+    "%COMMONDIR%\Delphi\compiler.cfg" JFLirc.cfg
 if errorlevel 1 goto failed
 set CFGFILE=JFLirc.cfg
 "%DELPHIROOT%\bin\dcc32.exe" %DCC32OPTS% %1 ^
@@ -95,7 +98,7 @@ set CFGFILE=JFLirc.cfg
     -R"%DELPHIROOT%\lib" ^
     JFLirc.dpr
 if errorlevel 1 goto failed
-ren %CFGFILE% %CFGFILE%.main
+if not "%CFGFILE%"=="" del %CFGFILE%
 set CFGFILE=
 if not "%OLDCFGFILE%"=="" ren %OLDCFGFILE%.%RND% %OLDCFGFILE%
 set OLDCFGFILE=
@@ -105,7 +108,7 @@ cd ..
 goto exit
 
 :failed
-if not "%CFGFILE%"=="" ren %CFGFILE% %CFGFILE%.main
+if not "%CFGFILE%"=="" del %CFGFILE%
 if not "%OLDCFGFILE%"=="" ren %OLDCFGFILE%.%RND% %OLDCFGFILE%
 echo *** FAILED ***
 cd ..
