@@ -63,7 +63,8 @@ goto failed2
 
 :common_ok
 
-set LIB_PATH=..\common\Delphi\LibFixed;%DELPHIROOT%\lib;..\common\Delphi\LibUser;..\common\Delphi\Imports
+set COMMONDIR=..\common
+set LIB_PATH=%COMMONDIR%\Delphi\LibFixed;%DELPHIROOT%\lib;%COMMONDIR%\Delphi\LibUser;%COMMONDIR%\Delphi\Imports
 
 rem -------------------------------------------------------------------------
 
@@ -77,8 +78,6 @@ rem  Temporarily rename any user-generated .cfg file during compilation.
 
 cd Source
 if errorlevel 1 goto failed
-
-set COMMONDIR=..\common
 
 rem TODO remove
 rem some test comment here to test conflicts...
