@@ -21,3 +21,13 @@ Finally, run the `postclone.bat` script. This will take care of further setting 
 To keep your clone updated, run the `update.bat` script. This script essentially runs a `git pull` but also performs some basic checks before pulling. It also runs a `git submodule update` after the pull to keep the `common`submodule up-to-date.
 
 If you want to contribute to this project, don't clone its main repository, but create your own fork first and clone that fork instead. Then commit your work on a topic branch and submit a pull request. For details, see the [generic instructions for contributing to projects](https://github.com/tdebaets/common/blob/master/CONTRIBUTING.md) in `common`.
+
+Building
+--------
+
+WinLIRC plug-in for jetAudio has been written in Borland Delphi 4. This means that in order to build this project, you'll need to have Borland Delphi 4 installed and properly set up. See the [generic instructions for building Delphi projects](https://github.com/tdebaets/common/blob/master/Delphi/Building.md) in `common`.
+
+License
+-------
+
+WinLIRC plug-in for jetAudio is Copyright © 2016 Tim De Baets. It is licensed under the Apache License version 2.0, see [LICENSE](LICENSE) for details.
