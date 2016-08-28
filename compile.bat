@@ -80,9 +80,6 @@ if errorlevel 1 goto failed
 
 set COMMONDIR=..\common
 
-rem TODO remove
-rem some test comment here to test conflicts...
-
 echo - JFLirc.dpr
 
 rem  Rename user-generated .cfg file if it exists
