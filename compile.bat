@@ -79,9 +79,6 @@ rem  Temporarily rename any user-generated .cfg file during compilation.
 cd Source
 if errorlevel 1 goto failed
 
-rem TODO remove
-rem some test comment here to test conflicts...
-
 echo - JFLirc.dpr
 
 rem  Rename user-generated .cfg file if it exists
